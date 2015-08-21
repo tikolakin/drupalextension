@@ -559,6 +559,9 @@ class DrupalContext extends MinkContext implements DrupalAwareInterface, Transla
     if (empty($linkObj)) {
       throw new \Exception(sprintf('The link "%s" was not found in the region "%s" on the page %s', $link, $region, $this->getSession()->getCurrentUrl()));
     }
+    if (!$linkObj->isVisible()) {
+      throw new \Exception(sprintf('The link "%s" is not currently visible and in the region %s on the page %s so may not be interacted with', $link, $region, $this->getSession()->getCurrentUrl()));
+    }
     $linkObj->click();
   }
 
